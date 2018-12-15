@@ -1,6 +1,5 @@
 var http = require('http').createServer(), //creating the server
   steem = require('steem'),
-  path = require('path'),
   mysql = require('mysql'); // getting the mysql package
 
 //the config object of the database

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Delegation Tool</title>
+</head>
+<body>
+    <h3>STEEM Delegation Tool</h3>
+    <span class="message"></span><br>
+    <input type="text" placeholder="Account Name..." id="accname" /><br>
+    <input type="text" placeholder="Delegate To..." id="delegatee" /><br>
+    <input type="password" placeholder="Active WIF Key..." id="wifkey" /><br>
+    <input type="number" min="0.1" max="100000" value="1000.00" id="sp" /><br>
+    <button id="sendDelegation" id="sendDelegation">Send Delegation</button>
+    <script
+			  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+			  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var account = $("#accname").val();
+            var delegatee = $("#delegatee").val();
+            var wif = $("#wifkey").val();
+            var sp = $("#sp").val();
+
+            $("#sendDelegation").click(function(){
+                    $(".message").html("");
+                    steem.api.getDynamicGlobalProperties(function(err, result)
+                    {
+                        const totalSteem = Number(result.total_vesting_fund_steem.split(' ')[0]);
+                        const totalVests = Number(result.total_vesting_shares.split(' ')[0]);
+                        const delegated_SP = sp;
+                        var delegated_vest = delegated_SP * totalVests / totalSteem;
+                        delegated_vest=delegated_vest.toFixed(6);
+                        delegated_vest=delegated_vest.toString()+' VESTS';
+
+                        steem.broadcast.delegateVestingShares(wif, account, delegatee, delegated_vest, function(err, result) {
+                            console.log(err, result);
+                            $(".message").html("Delegation made succesfully!");
+                        });
+                    });
+            });
+        });
+    </script>
+</body>
+</html>

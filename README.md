@@ -9,3 +9,5 @@ this is a project created by @upmeboost and here I will upload all of the utopia
 [NodeJS MySQL](https://github.com/upmeboost-utopian/utopian-io-tutorials/tree/master/mysql-tutorial)
 
 [SteemJS Tutorials](https://github.com/upmeboost-utopian/utopian-io-tutorials/tree/master/SteemJS)
+
+[SteemBots](https://github.com/upmeboost-utopian/utopian-io-tutorials/tree/master/Steem%20Bots)
